@@ -1,2 +1,4 @@
 mod guessing_game;
-fn main() {}
+fn main() {
+    guessing_game::guessing_game();
+}
