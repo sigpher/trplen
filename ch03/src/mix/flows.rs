@@ -38,4 +38,12 @@ pub fn flows() {
         println!("{}", a[index]);
         index += 1;
     }
+
+    for element in a {
+        println!("{element}");
+    }
+
+    for number in (1..10).rev() {
+        println!("LIFOFF");
+    }
 }
