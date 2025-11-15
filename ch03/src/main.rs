@@ -1,4 +1,4 @@
-pub mod mix;
+mod mix;
 
 // mod shadowing;
 // mod varables_and_mutablility;
