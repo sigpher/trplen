@@ -1,12 +1,5 @@
-pub fn lifetime() {
-    let r;
-    {
-        let x = 5;
-        r = &x
-    }
-    // println!("r: {r}");
-}
+use std::cmp::max;
 
-pub fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
-    if x.len() > y.len() { x } else { y }
+pub fn max_of_refs<'a>(a: &'a i32, b: &'a i32) -> &'a i32 {
+    if *a > *b { a } else { b }
 }
