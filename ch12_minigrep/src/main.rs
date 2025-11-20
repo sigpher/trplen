@@ -1,10 +1,10 @@
 use ch12_minigrep::{search, search_case_insensitive};
 use std::{env, error::Error, fs, process};
 fn main() {
-    let args: Vec<String> = env::args().collect();
+    // let args: Vec<String> = env::args().collect();
 
     // let config = Config::new(&args);
-    let config = Config::build(&args).unwrap_or_else(|err| -> Config {
+    let config = Config::build(env::args()).unwrap_or_else(|err| -> Config {
         eprintln!("Problem parsing arguments:{err}");
         process::exit(1)
     });
