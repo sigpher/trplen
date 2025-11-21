@@ -1,25 +1,24 @@
-use std::ops::Deref;
+use std::{ops::Deref, rc::Rc};
 
 fn main() {
-    // use List::*;
-    // let list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
-    // println!("{list:?}");
+    // let x = 5;
+    // let y = Box::new(x);
 
-    let x = 5;
-    let y = Box::new(x);
+    // assert_eq!(5, x);
+    // assert_eq!(5, *y);
 
-    assert_eq!(5, x);
-    assert_eq!(5, *y);
+    // let z = MyBox::new(x);
+    // assert_eq!(5, *z);
 
-    let z = MyBox::new(x);
-    assert_eq!(5, *z);
+    use List::{Cons, Nil};
+
+    let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    let b = Cons(3, Rc::clone(&a));
+    let c = Cons(4, Rc::clone(&a));
+    println!("{a:?}");
+    println!("{b:?}");
+    println!("{c:?}");
 }
-
-// #[derive(Debug)]
-// enum List {
-//     Cons(i32, Box<List>),
-//     Nil,
-// }
 
 struct MyBox<T>(T);
 
@@ -35,4 +34,10 @@ impl<T> Deref for MyBox<T> {
     fn deref(&self) -> &Self::Target {
         &self.0
     }
+}
+
+#[derive(Debug)]
+enum List {
+    Cons(i32, Rc<List>),
+    Nil,
 }
