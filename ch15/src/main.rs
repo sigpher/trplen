@@ -1,4 +1,8 @@
-use std::{ops::Deref, rc::Rc};
+use std::{
+    cell::{Cell, Ref, RefCell},
+    ops::Deref,
+    rc::Rc,
+};
 
 fn main() {
     // let x = 5;
@@ -18,6 +22,22 @@ fn main() {
     println!("{a:?}");
     println!("{b:?}");
     println!("{c:?}");
+
+    let x = Cell::new(1);
+    let y = &x;
+    let z = &x;
+    x.set(2);
+    x.set(3);
+    x.set(4);
+    println!("{}", x.get());
+
+    let x = RefCell::new(String::from("hi"));
+    let mut y = x.borrow_mut();
+    println!("{:?}", x);
+
+    let choi = Person::new();
+
+    // println!("{:?}", choi);
 }
 
 struct MyBox<T>(T);
@@ -40,4 +60,19 @@ impl<T> Deref for MyBox<T> {
 enum List {
     Cons(i32, Rc<List>),
     Nil,
+}
+
+#[derive(Debug)]
+struct Person<'a> {
+    count: u8,
+    name: RefCell<&'a str>,
+}
+
+impl<'a> Person<'a> {
+    fn new() -> Self {
+        Self {
+            count: 0,
+            name: RefCell::new("default"),
+        }
+    }
 }
